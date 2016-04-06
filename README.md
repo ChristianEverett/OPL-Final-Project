@@ -72,6 +72,7 @@ Here each group member gets a section where they, as an individual, detail what 
 * Work on racket HTTP client
 
 ### Rotana Nou @RotanaNou
-will work on...
+* Work on GUI (User Interface) for client in racket
+* Work on racket HTTP client
 
 
