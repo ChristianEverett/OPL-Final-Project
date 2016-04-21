@@ -1,4 +1,3 @@
-#lang racket
 
 (require net/url)
 (require net/url-connect)
