@@ -7,6 +7,8 @@ This project intrests me because I think it has alot of practical applications a
 
 I hope to learn more about how a larger scale racket application functions, and how to make use of external racket librarys such as the racket GUI library.
 
+![Alt text](https://github.com/oplS16projects/Everett-Nou/blob/master/GUI.PNG "GUI")
+
 ### Analysis
 This project will use several topics covered in class. We will be using a state modification encapsulated in an object oriented approach. This object will represent the connection between client and server. We will also use map and filter when processing the returned json dataset from the server. We will also use Iteration or Recursion in some way when processing the dataset. We will also be using objects to encapsulate UI elements with the racket GUI library.
 
