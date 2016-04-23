@@ -1,4 +1,7 @@
-#lang racket/gui
+#lang racket
+
+(include "http-client.rkt")
+
 ;requires fields
 (require racket/gui
          racket/draw)
@@ -9,7 +12,7 @@
 (define main-frame-height 350)
 (define left-panel-button-height 10)
 (define left-panel-button-width 150)
-(define middle-msg-panel-width 50)
+(define middle-msg-panel-width 120)
 (define middle-msg-panel-height 10)
 
 ; create the application frame
@@ -50,7 +53,11 @@
             [parent left-child-panel]
             [label "Front Door"]
             [min-width left-panel-button-width]
-            [min-height left-panel-button-height])
+            [min-height left-panel-button-height]
+            [callback (lambda (button event) (begin (if switchOne
+                                                        (begin (button_press "one" "0") (set! switchOne #f))
+                                                        (begin (button_press "one" "1") (set! switchOne #t)))
+                                                    (send doorLabel set-label (string-append "Front Door: " (boolean->On/Off switchOne)))))])
        )))
 ;second button from top
 (define left-panel2-stuff
@@ -62,7 +69,11 @@
             [parent left-child-panel]
             [label "Television"]
             [min-width left-panel-button-width]
-            [min-height left-panel-button-height])
+            [min-height left-panel-button-height]
+            [callback (lambda (button event) (begin (if switchTwo
+                                                        (begin (button_press "two" "0") (set! switchTwo #f))
+                                                        (begin (button_press "two" "1") (set! switchTwo #t)))
+                                                    (send televisionLabel set-label (string-append "Television: " (boolean->On/Off switchTwo)))))])
        )))
 ;third button from top
 (define left-panel3-stuff
@@ -74,7 +85,11 @@
             [parent left-child-panel]
             [label "Air Conditioner"]
             [min-width left-panel-button-width]
-            [min-height left-panel-button-height])
+            [min-height left-panel-button-height]
+            [callback (lambda (button event) (begin (if switchThree
+                                                        (begin (button_press "three" "0") (set! switchThree #f))
+                                                        (begin (button_press "three" "1") (set! switchThree #t)))
+                                                    (send air-conditionerLabel set-label (string-append "Air Conditioner: " (boolean->On/Off switchThree)))))])
        )))
 ;litchen light button 
 (define left-panel4-stuff
@@ -86,7 +101,11 @@
             [parent left-child-panel]
             [label "Kitchen Light"]
             [min-width left-panel-button-width]
-            [min-height left-panel-button-height])
+            [min-height left-panel-button-height]
+            [callback (lambda (button event) (begin (if switchFour
+                                                        (begin (button_press "four" "0") (set! switchFour #f))
+                                                        (begin (button_press "four" "1") (set! switchFour #t)))
+                                                    (send kitchen-lightLabel set-label (string-append "Kitchen Light: " (boolean->On/Off switchFour)))))])
        )))
 ;status log
 ;First message status
@@ -207,14 +226,34 @@
   (new timer% [notify-callback (lambda () (send clock-canvas refresh-now))]
        [interval 1000]))
 
+
+; sync data with server
+(define switchOne (get-device-state "switch_one"))
+(define switchTwo (get-device-state "switch_two"))
+(define switchThree (get-device-state "switch_three"))
+(define switchFour (get-device-state "switch_four"))
+
+(define (boolean->On/Off bool)
+  (if bool
+      "On"
+      "Off"))
+
+
 ; make everyting visible
 (right-panel-stuff)
 (left-panel1-stuff)
 (left-panel2-stuff)
 (left-panel3-stuff)
 (left-panel4-stuff)
-(middle-panel1-stuff)
-(middle-panel2-stuff)
-(middle-panel3-stuff)
-(middle-panel4-stuff)
+
+(define doorLabel (middle-panel1-stuff))
+(define televisionLabel (middle-panel2-stuff))
+(define air-conditionerLabel (middle-panel3-stuff))
+(define kitchen-lightLabel (middle-panel4-stuff))
 (send make-frame show #t)
+
+(send doorLabel set-label (string-append "Front Door: " (boolean->On/Off switchOne)))
+(send televisionLabel set-label (string-append "Television: "(boolean->On/Off switchTwo)))
+(send air-conditionerLabel set-label (string-append "Air Conditioner: " (boolean->On/Off switchThree)))
+(send kitchen-lightLabel set-label (string-append "Kitchen Light: " (boolean->On/Off switchFour)))
+
