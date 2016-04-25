@@ -1,5 +1,9 @@
 # Project Title: Home Automation
 
+###Authors
+Christian Everett @ChristianEverett<br>
+Rotana Nou @RotanaNou
+
 ### Statement
 Create a home automation system with a raspberry pi. System will use a desktop gui client (in racket) to POST commands and GET states (of devices) to/from an http server running on the pi. The pi will process the commands and execute them (such as switching relays on/off through the pi's GPIO to enable/disable lights, garage doors, locks or other devices).
 
@@ -8,6 +12,45 @@ This project intrests me because I think it has alot of practical applications a
 I hope to learn more about how a larger scale racket application functions, and how to make use of external racket librarys such as the racket GUI library.
 
 ![Alt text](https://github.com/oplS16projects/Everett-Nou/blob/master/GUI.PNG "GUI")
+
+###External Libarys
+(require racket/gui racket/draw)<br>
+(require racket/date slideshow/pict)<br>
+(require net/url)<br>
+(require (prefix-in url-connect: net/url-connect))<br>
+(require net/http-client)<br>
+(require net/uri-codec)<br>
+(require json)<br>
+
+###Favorite Scheme Expressions
+#####Christian Everett
+This expression uses object message passing to represent
+an HTTP connection to a particular host
+```racket
+;; HTTP Connection Object
+(define (Create-Connection host)
+  (define (set-device-state device state)
+    (http-sendrecv host	 
+ 	 	 "/execute_command.php?action=2"	 
+ 	 	 #:ssl? #f	 
+ 	 	 #:port 80	 	 
+ 	 	 #:method "POST"	 	 
+ 	 	 #:data (alist->form-urlencoded
+                         (list (cons 'command device)
+                               (cons 'state state)))
+                 #:headers (list "Content-Type: application/x-www-form-urlencoded")))
+  (define (get-device-states)
+    (http-sendrecv host	 
+ 	 	 "/execute_command.php?action=1"	 
+ 	 	 #:ssl? #f	 
+ 	 	 #:port 80	 	 
+ 	 	 #:method "GET"	 	 
+ 	 	 #:data #f))
+  (define (dispatch method)
+    (cond ((eq? method 'POST) set-device-state)
+          ((eq? method 'GET) get-device-states)))
+  dispatch)
+```
 
 ### Analysis
 This project will use several topics covered in class. We will be using a state modification encapsulated in an object oriented approach. This object will represent the connection between client and server. We will also use map and filter when processing the returned json dataset from the server. We will also use Iteration or Recursion in some way when processing the dataset. We will also be using objects to encapsulate UI elements with the racket GUI library.
