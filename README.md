@@ -51,6 +51,24 @@ an HTTP connection to a particular host
           ((eq? method 'GET) get-device-states)))
   dispatch)
 ```
+#####Rotana Nou
+This part of the code creates a button with a string label
+```racket
+;; create a button
+(define left-panel3-stuff
+  (lambda ()
+    (begin
+       (define left-child-panel (new horizontal-panel%
+                                     [parent left-frame-panel]))
+       (new button%
+            [parent left-child-panel]
+            [label "Air Conditioner"]
+            [min-width left-panel-button-width]
+            [min-height left-panel-button-height])
+       )))
+;; make it visible
+(left-panel3-stuff)
+```
 
 ### Analysis
 This project will use several topics covered in class. We will be using a state modification encapsulated in an object oriented approach. This object will represent the connection between client and server. We will also use map and filter when processing the returned json dataset from the server. We will also use Iteration or Recursion in some way when processing the dataset. We will also be using objects to encapsulate UI elements with the racket GUI library.
