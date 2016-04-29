@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2016-01-04T20:27:42</date>
+  <millis>1451957262324</millis>
+  <sequence>0</sequence>
+  <logger>pi.controller.Controller</logger>
+  <level>INFO</level>
+  <class>pi.controller.Controller</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Starting Service</message>
+</record>
+<record>
+  <date>2016-01-04T20:27:42</date>
+  <millis>1451957262348</millis>
+  <sequence>1</sequence>
+  <logger>pi.controller.Controller</logger>
+  <level>INFO</level>
+  <class>pi.controller.MySQLHandler</class>
+  <method>log</method>
+  <thread>1</thread>
+  <message>loaded MYSQL driver</message>
+</record>
+<record>
+  <date>2016-01-04T20:27:42</date>
+  <millis>1451957262520</millis>
+  <sequence>2</sequence>
+  <logger>pi.controller.Controller</logger>
+  <level>INFO</level>
+  <class>pi.controller.MySQLHandler</class>
+  <method>log</method>
+  <thread>1</thread>
+  <message>Connected to MYSQL</message>
+</record>
+<record>
+  <date>2016-01-04T20:27:42</date>
+  <millis>1451957262522</millis>
+  <sequence>3</sequence>
+  <logger>pi.controller.Controller</logger>
+  <level>INFO</level>
+  <class>pi.controller.MySQLHandler</class>
+  <method>log</method>
+  <thread>1</thread>
+  <message>Using Database: pidb</message>
+</record>
+<record>
+  <date>2016-01-04T20:27:56</date>
+  <millis>1451957276655</millis>
+  <sequence>4</sequence>
+  <logger>pi.controller.Controller</logger>
+  <level>INFO</level>
+  <class>pi.controller.Controller</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Action: test</message>
+</record>
